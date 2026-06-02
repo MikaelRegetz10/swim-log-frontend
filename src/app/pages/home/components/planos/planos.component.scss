@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+// Variáveis
+$font-title: 'Syne', sans-serif;
+$font-text: 'Plus Jakarta Sans', sans-serif;
+
+$bg-section: #f4f7f9;
+$white: #ffffff;
+$text-dark: #112a46;
+$text-light-blue: #4fa8e0;
+$text-gray: #6b7c93;
+$border-color: #eaeff4;
+
+$card-dark-bg: #0b1f36; // Fundo azul marinho escuro do plano Pro
+$btn-green: #00e696;    // Verde vibrante do botão "Assinar Pro"
+$btn-green-text: #052e1f;
+
+#planos {
+  background-color: $bg-section;
+  padding: 6rem 2rem 8rem 2rem;
+  font-family: $font-text;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+// ── CABEÇALHO ──
+.header-section {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  .tag {
+    display: inline-block;
+    background-color: #eaf5fd;
+    color: $text-light-blue;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-family: $font-title;
+    font-size: 3rem;
+    color: $text-dark;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 1.25rem;
+
+    .highlight {
+      color: $text-light-blue;
+    }
+  }
+
+  .subtitle {
+    color: $text-gray;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+}
+
+// ── GRID DE PLANOS ──
+// ── GRID DE PLANOS ──
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: center; 
+  max-width: 980px; // Reduz a largura máxima do grid para os cards não esticarem tanto
+  margin: 0 auto;   // Centraliza o grid
+}
+
+.plan-card {
+  background-color: $white;
+  border-radius: 16px;
+  // 1. Reduzi o padding interno (era 2.5rem 2rem)
+  padding: 2rem 1.5rem; 
+  box-shadow: 0 10px 40px rgba(17, 42, 70, 0.05);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .plan-name {
+    font-size: 0.85rem; // Fonte ligeiramente menor
+    font-weight: 700;
+    color: $text-light-blue;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+
+  .price-block {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    margin-bottom: 0.75rem;
+
+    .currency {
+      font-size: 1rem;
+      font-weight: 700;
+      color: $text-gray;
+      padding-bottom: 0.6rem;
+    }
+
+    .amount {
+      font-family: $font-title;
+      // 2. Reduzi o tamanho do número (era 4rem)
+      font-size: 3.2rem; 
+      font-weight: 800;
+      color: $text-dark;
+      line-height: 1;
+      letter-spacing: -2px; 
+      transform: scaleX(1.1);
+      transform-origin: left bottom;
+    }
+
+    .period {
+      font-size: 0.85rem;
+      color: $text-gray;
+      font-weight: 500;
+      padding-bottom: 0.6rem;
+    }
+  }
+
+  .plan-desc {
+    font-size: 0.85rem; // Texto um pouco menor
+    color: $text-gray;
+    line-height: 1.5;
+    min-height: 55px; // Altura mínima reduzida
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid $border-color;
+    margin: 1.25rem 0; // Margens do divisor reduzidas
+  }
+
+  // Lista de Features
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0; // Margem inferior reduzida
+    flex-grow: 1;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem; // Texto da lista menor
+      color: $text-dark;
+      margin-bottom: 0.6rem; // Espaço entre itens da lista reduzido
+      font-weight: 500;
+
+      .icon {
+        width: 16px; // Ícones um pouco menores
+        height: 16px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        svg {
+          width: 9px;
+          height: 9px;
+          fill: none;
+          stroke-width: 2.5;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+
+        &.check {
+          background-color: rgba(0, 230, 150, 0.15);
+          svg { stroke: #00c07d; }
+        }
+
+        &.cross {
+          background-color: #eaeff4;
+          svg { stroke: #a0aec0; }
+        }
+      }
+
+      &.disabled {
+        color: #a0aec0;
+      }
+    }
+  }
+
+  // Botões
+  .btn-light {
+    width: 100%;
+    padding: 0.85rem; // Botão menos alto
+    background-color: $bg-section;
+    color: $text-dark;
+    border: none;
+    border-radius: 8px;
+    font-family: $font-text;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover { background-color: #e2e8f0; }
+  }
+
+
+  // ── ESTILO DO CARD PRO (DESTAQUE) ──
+  &.featured {
+    background-color: $card-dark-bg;
+    color: $white;
+    transform: scale(1.05); // Mantém o destaque, mas o tamanho base agora é menor
+    box-shadow: 0 20px 50px rgba(11, 31, 54, 0.3);
+    z-index: 2;
+
+    .badge-wrapper {
+      position: absolute;
+      top: -12px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 1.5rem; // Acompanha o novo padding
+
+      .badge {
+        background-color: $btn-green;
+        color: $btn-green-text;
+        font-size: 0.7rem;
+        font-weight: 800;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    .plan-name { color: $text-light-blue; }
+    .price-block .currency, .price-block .period { color: rgba(255, 255, 255, 0.6); }
+    .price-block .amount { color: $white; }
+    .plan-desc { color: rgba(255, 255, 255, 0.7); }
+    .divider { border-color: rgba(255, 255, 255, 0.1); }
+    
+    .feature-list li {
+      color: $white;
+      .icon.check {
+        background-color: rgba(0, 230, 150, 0.2);
+        svg { stroke: $btn-green; }
+      }
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 0.85rem; // Botão menos alto
+      background-color: $btn-green;
+      color: $btn-green-text;
+      border: none;
+      border-radius: 8px;
+      font-family: $font-text;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: darken($btn-green, 5%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// ── RESPONSIVIDADE ──
+@media (max-width: 992px) {
+  .plans-grid {
+    grid-template-columns: 1fr; // Empilha tudo no mobile e tablet
+    gap: 3rem; // Aumenta o buraco para caber as badges sem encavalar
+  }
+
+  .plan-card.featured {
+    transform: scale(1); // Remove o aumento no mobile para não quebrar a largura
+  }
+  
+  .header-section .title {
+    font-size: 2.2rem;
+  }
+}

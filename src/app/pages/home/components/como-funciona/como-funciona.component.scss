@@ -1,0 +1,139 @@
+// Importação de segurança garantindo que as fontes carreguem neste componente
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+$font-title: 'Syne', sans-serif;
+$font-text: 'Plus Jakarta Sans', sans-serif;
+
+// Cores exatas do design
+$bg-section: #f4f7f9;
+$text-dark: #112a46;
+$text-light-blue: #4fa8e0;
+$text-gray: #6b7c93;
+$watermark-blue: #e0f2fe; // Azul bem clarinho dos números
+$tag-bg: #e6f5fd;
+$white: #ffffff;
+
+#como-funciona {
+  background-color: $bg-section;
+  padding: 5rem 2rem;
+  font-family: $font-text; // Aplica a fonte sem serifa na seção inteira
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+// ── CABEÇALHO DA SEÇÃO ──
+.header-section {
+  margin-bottom: 4rem;
+
+  .tag {
+    display: inline-block;
+    background-color: $tag-bg;
+    color: $text-light-blue;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .title {
+    font-family: $font-title;
+    font-size: 3rem;
+    color: $text-dark;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+
+    .highlight {
+      color: $text-light-blue;
+    }
+  }
+
+  .subtitle {
+    color: $text-gray;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+}
+
+// ── GRID DE CARDS ──
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem; // Espaço entre os cards
+}
+
+.card {
+  background-color: $white;
+  padding: 3rem 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(17, 42, 70, 0.05);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  // ── NOVO CARD HEADER (Sem sobreposição) ──
+  .card-header {
+    display: flex;
+    align-items: center; // Alinha o número e o ícone no mesmo eixo vertical
+    gap: 1.25rem;        // Cria um espaço seguro entre o número e o ícone
+    margin-bottom: 1.5rem;
+
+    .watermark {
+      font-family: $font-title;
+      font-size: 4rem; // Tamanho ajustado para não quebrar o layout
+      font-weight: 800;
+      color: $watermark-blue;
+      line-height: 1;
+    }
+
+    .icon-wrapper {
+      width: 48px;
+      height: 48px;
+      background-color: $white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(17, 42, 70, 0.08); // Sombra que destaca o ícone
+
+      svg {
+        width: 22px;
+        height: 22px;
+        color: $text-dark;
+      }
+    }
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: $text-gray;
+    line-height: 1.6;
+  }
+}
+
+// ── RESPONSIVO ──
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: 1fr; // Empilha no mobile
+  }
+  .header-section .title {
+    font-size: 2.2rem;
+  }
+}

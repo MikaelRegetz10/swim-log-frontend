@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+// Variáveis
+$font-title: 'Syne', sans-serif;
+$font-text: 'Plus Jakarta Sans', sans-serif;
+
+$bg-footer: #0c1a2c;         // Azul marinho escuro do fundo
+$text-white: #ffffff;
+$text-gray: #8b9db1;         // Cinza azulado para textos secundários
+$accent-blue: #1cb0f6;       // Azul vibrante do logo e ícones
+$badge-bg: rgba(255, 255, 255, 0.04);
+$badge-border: rgba(255, 255, 255, 0.08);
+
+.footer-section {
+  background-color: $bg-footer;
+  color: $text-white;
+  font-family: $font-text;
+  padding: 5rem 2rem 3rem 2rem;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+// ── FAIXA DE GARANTIA ──
+.guarantee-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+
+  .text-content {
+    max-width: 500px;
+    
+    h2 {
+      font-family: $font-title;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 0.75rem;
+    }
+    
+    p {
+      color: $text-gray;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  }
+
+  .badges {
+    display: flex;
+    gap: 1.5rem;
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background-color: $badge-bg;
+      border: 1px solid $badge-border;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+
+      .icon-bg {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(28, 176, 246, 0.1);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 20px;
+          height: 20px;
+          color: $accent-blue;
+        }
+      }
+
+      .badge-text {
+        display: flex;
+        flex-direction: column;
+        
+        strong {
+          font-size: 0.95rem;
+          font-weight: 700;
+          color: $text-white;
+        }
+        
+        span {
+          font-size: 0.8rem;
+          color: $text-gray;
+        }
+      }
+    }
+  }
+}
+
+// ── DIVISOR E RODAPÉ INFERIOR ──
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 3rem;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    font-family: $font-title;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    
+    .swim { color: $text-white; }
+    .log { color: $accent-blue; }
+  }
+
+  .copy {
+    color: $text-gray;
+    font-size: 0.85rem;
+  }
+}
+
+// ── RESPONSIVO ──
+@media (max-width: 992px) {
+  .guarantee-strip {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .guarantee-strip .badges {
+    flex-direction: column;
+    width: 100%;
+    
+    .badge { width: 100%; }
+  }
+}

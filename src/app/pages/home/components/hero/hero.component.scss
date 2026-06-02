@@ -1,0 +1,155 @@
+// ==========================================
+// VARIÁVEIS DE CORES (Baseadas na imagem)
+// ==========================================
+$bg-dark: #0a192f;           // Azul marinho profundo do fundo
+$dot-color: rgba(255, 255, 255, 0.08); // Cor dos pontinhos de fundo
+$text-white: #ffffff;
+$text-gray: #c0c8d1;         // Cinza azulado do parágrafo
+$accent-blue: #1cb0f6;       // Azul brilhante do "parciais" e do badge
+$btn-green: #00e696;         // Verde vibrante do botão
+$btn-green-text: #052e1f;    // Verde muito escuro/preto para o texto do botão
+
+// Variáveis de Fontes (Já importadas globalmente no passo anterior)
+$font-title: 'Syne', sans-serif;
+$font-text: 'Plus Jakarta Sans', sans-serif;
+
+// ==========================================
+// ESTILOS DA SEÇÃO HERO
+// ==========================================
+.hero-section {
+  // Fundo Azul Escuro com padrão de bolinhas
+  background-color: $bg-dark;
+  background-image: radial-gradient($dot-color 1.5px, transparent 1.5px);
+  background-size: 40px 40px; // Espaçamento entre os pontos
+
+  // Altura mínima para pegar a tela toda (descontando o provável tamanho do header)
+  min-height: calc(100vh - 80px); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  font-family: $font-text;
+}
+
+.hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left; // Centraliza todo o texto
+}
+
+// 1. Badge "Novo para Técnicos e Atletas"
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(28, 176, 246, 0.1); // Fundo azul bem transparente
+  border: 1px solid rgba(28, 176, 246, 0.3); // Bordinha sutil
+  color: $accent-blue;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  margin-bottom: 2rem;
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    background-color: $accent-blue;
+    border-radius: 50%;
+  }
+}
+
+// 2. Título H1 ("Chega de perder parciais...")
+.title {
+  font-family: $font-title;
+  color: $text-white;
+  text-align: left;
+  font-size: 4rem; // Tamanho grande como na imagem
+  font-weight: 800; // ExtraBold para a Syne brilhar
+  line-height: 0.95; // Texto bem juntinho verticalmente
+  letter-spacing: -2px; // Syne pede um espaçamento negativo
+  margin-bottom: 1.5rem;
+
+  .highlight {
+    color: $accent-blue;
+  }
+}
+
+// 3. Subtítulo (Parágrafo)
+.subtitle {
+  color: $text-gray;
+  font-size: 1.25rem;
+  text-align: left;
+  line-height: 1.6;
+  font-weight: 500;
+  margin-bottom: 3rem;
+  max-width: 650px;
+}
+
+// 4. Botões
+.actions {
+  display: flex;
+  gap: 1.2rem;
+
+  button {
+    font-family: $font-text;
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 1rem 1.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; // Espaço do ícone pro texto
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background-color: $btn-green;
+    color: $btn-green-text;
+    border: none;
+
+    &:hover {
+      background-color: darken($btn-green, 5%);
+      transform: translateY(-2px); // Efeitinho subindo no hover
+    }
+  }
+
+  .btn-secondary {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: $text-white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// ==========================================
+// RESPONSIVIDADE (Mobile)
+// ==========================================
+@media (max-width: 768px) {
+  .title {
+    font-size: 3rem; // Diminui a fonte no celular
+    letter-spacing: -1px;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .actions {
+    flex-direction: column; // Empilha os botões
+    width: 100%;
+
+    button {
+      width: 100%; // Botões ocupam 100% da tela no mobile
+    }
+  }
+}

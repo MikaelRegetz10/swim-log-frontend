@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+// Variáveis de Cores (Consistentes com o resto do sistema)
+$font-title: 'Syne', sans-serif;
+$font-text: 'Plus Jakarta Sans', sans-serif;
+
+$bg-white: #ffffff;
+$text-dark: #112a46;
+$text-light-blue: #4fa8e0;
+$text-gray: #6b7c93;
+$border-color: #eaeff4; // Borda bem clarinha
+$icon-bg: #eaf5fd; // Fundo azul claro do ícone
+
+// Variáveis do Card Destacado
+$highlight-bg: #112a46;
+$highlight-text-title: #ffffff;
+$highlight-text-desc: rgba(255, 255, 255, 0.7); // Cinza claro para não ofuscar
+$highlight-icon-bg: rgba(255, 255, 255, 0.1); // Ícone mais sutil no fundo escuro
+$highlight-icon-color: #4fa8e0;
+
+#recursos {
+  background-color: $bg-white;
+  padding: 6rem 2rem;
+  font-family: $font-text;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+// ── CABEÇALHO ──
+.header-section {
+  margin-bottom: 4rem;
+
+  .tag {
+    display: inline-block;
+    background-color: $icon-bg;
+    color: $text-light-blue;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .title {
+    font-family: $font-title;
+    font-size: 3.2rem;
+    color: $text-dark;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 1.25rem;
+  }
+
+  .subtitle {
+    color: $text-gray;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+}
+
+// ── GRID E CARDS ──
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; // Espaçamento consistente entre os cards
+}
+
+.feature-card {
+  background-color: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: 16px; // Bordas ligeiramente arredondadas
+  padding: 2.5rem;
+  transition: all 0.3s ease;
+  
+  // Efeito de flutuação ao passar o mouse
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(17, 42, 70, 0.05);
+    border-color: rgba(79, 168, 224, 0.3); // A borda ganha um tom azul clarinho
+  }
+
+  .icon-box {
+    width: 48px;
+    height: 48px;
+    background-color: $icon-bg;
+    border-radius: 12px; // Quadrado com cantos arredondados (squircle)
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      color: $text-light-blue;
+    }
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.3px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: $text-gray;
+    line-height: 1.6;
+  }
+
+  // ── CARD EM DESTAQUE (ESCURO) ──
+  &.highlight {
+    background-color: $highlight-bg;
+    border-color: transparent;
+
+    &:hover {
+      box-shadow: 0 12px 30px rgba(17, 42, 70, 0.15);
+    }
+
+    .icon-box {
+      background-color: $highlight-icon-bg;
+      
+      svg {
+        color: $highlight-icon-color;
+      }
+    }
+
+    h3 {
+      color: $highlight-text-title;
+    }
+
+    p {
+      color: $highlight-text-desc;
+    }
+  }
+}
+
+// ── RESPONSIVO ──
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr); // 2 colunas em tablets
+  }
+}
+
+@media (max-width: 768px) {
+  .header-section .title {
+    font-size: 2.5rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr; // 1 coluna em celulares
+  }
+}

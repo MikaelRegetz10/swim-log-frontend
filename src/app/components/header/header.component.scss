@@ -1,0 +1,119 @@
+// Variáveis de Cores
+$bg-color: #f0f7fa;
+$text-dark: #112a46;
+$text-blue: #4fa8e0;
+$text-muted: #6b7c93;
+$btn-green: #61d297;
+$btn-text: #ffffff;
+
+// Variáveis de Fontes
+$font-logo: 'Syne', sans-serif;
+$font-text: 'Plus Jakarta Sans', sans-serif;
+
+// Estilos do Header
+.app-header {
+  // ── FIXAÇÃO DO HEADER ──
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  
+  // Fundo com 95% de opacidade para o desfoque funcionar
+  background-color: rgba(240, 247, 250, 0.95); 
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+
+  // ── ESTILOS ANTERIORES ──
+  font-family: $font-text; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 4rem;
+  
+  // 1. Logo
+  .logo {
+    font-family: $font-logo; 
+    font-size: 2.2rem;
+    font-weight: 800; 
+    letter-spacing: -1px;
+    cursor: pointer;
+    
+    .swim {
+      color: $text-dark;
+    }
+    
+    .log {
+      color: $text-blue;
+    }
+  }
+
+  // 2. Links de Navegação
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    
+    a {
+      text-decoration: none;
+      color: $text-muted;
+      font-weight: 600; 
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+
+  // 3. Ações (Login e Botão)
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    
+    .login {
+      text-decoration: none;
+      color: $text-dark;
+      font-weight: 700; 
+      font-size: 1rem;
+      transition: opacity 0.3s ease;
+      
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    
+    .btn-start {
+      text-decoration: none;
+      background-color: $btn-green;
+      color: $btn-text;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 700; 
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+      
+      &:hover {
+        background-color: darken($btn-green, 5%);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
+
+// Media Query para Responsividade Básica
+@media (max-width: 768px) {
+  .app-header { // Corrigido de .header para .app-header
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+
+    .nav-links {
+      gap: 1.5rem;
+    }
+  }
+}

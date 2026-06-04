@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+$font-logo: 'Syne', sans-serif;
+$font-text: 'Plus Jakarta Sans', sans-serif;
+
+$color-bg-page: #f4f7f9;       // Cinza bem claro de fundo da página inteira
+$color-card-bg: #ffffff;
+$color-text-main: #2d3748;
+$color-text-muted: #718096;
+$color-accent-blue: #4fa8e0;
+$color-accent-dark: #112a46;
+$color-swimlog-green: #48bb78; // Verde adaptado da imagem do Faturaê (#4db096 aproximado)
+$color-btn-green: #4db096;     // Tom verde esmeralda idêntico ao botão da imagem
+$color-input-border: #e2e8f0;
+
+
+// ── VALIDAÇÃO DE SENHAS ──
+
+.password-requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  padding-left: 0.25rem;
+
+  span {
+    font-size: 0.75rem;
+    color: $color-text-muted;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+
+    // Bolinha cinza padrão
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #cbd5e1;
+      transition: background-color 0.3s ease;
+    }
+
+    // Fica verde quando o requisito é atendido
+    &.valid {
+      color: $color-swimlog-green;
+      
+      &::before {
+        background-color: $color-swimlog-green;
+      }
+    }
+  }
+}
+
+.match-msg {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  padding-left: 0.25rem;
+  font-weight: 600;
+
+  &.success {
+    color: $color-swimlog-green;
+  }
+
+  &.error {
+    color: #e53e3e; // Vermelho para erro
+  }
+}
+
+.auth-page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-bg-page;
+  font-family: $font-text;
+  padding: 2rem 1rem;
+}
+
+// ── O CARD FLUTUANTE CENTRALIZADO ──
+.auth-centered-card {
+  background-color: $color-card-bg;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 32px; // Bordas bem arredondadas como na imagem
+  padding: 3rem 2.5rem;
+  box-shadow: 0 20px 60px rgba(17, 42, 70, 0.05); // Sombra suave de elevação
+  display: flex;
+  flex-direction: column;
+}
+
+// ── BRAND E LOGO ──
+.brand-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .logo-wordmark {
+    font-family: $font-logo;
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+
+    .swim { color: $color-accent-dark; }
+    .log { color: $color-accent-blue; }
+  }
+
+  .panel-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: $color-text-main;
+    letter-spacing: -0.5px;
+  }
+}
+
+.auth-description {
+  color: $color-text-muted;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 0.5rem;
+}
+
+// ── ALTERNADOR DE ABAS (TABS) ──
+.auth-tabs {
+  display: flex;
+  background-color: $color-bg-page;
+  padding: 0.3rem;
+  border-radius: 14px;
+  margin-bottom: 2rem;
+
+  button {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 0.7rem;
+    font-family: $font-text;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: $color-text-muted;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+
+    &.active {
+      background-color: #ffffff;
+      color: $color-accent-dark;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+  }
+}
+
+// ── GRUPOS DE INPUTS ESTILIZADOS ──
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $color-text-main;
+  }
+
+  input {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid $color-input-border;
+    border-radius: 12px; // Bordas levemente arredondadas e suaves dos inputs
+    padding: 0.9rem 1.2rem;
+    font-family: $font-text;
+    font-size: 0.95rem;
+    color: $color-text-main;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &::placeholder {
+      color: #a0aec0;
+      font-weight: 400;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: rgba($color-accent-blue, 0.5);
+      box-shadow: 0 0 0 4px rgba($color-accent-blue, 0.06);
+    }
+  }
+
+  // Wrapper para controlar o botão de olho na senha
+  .password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+      padding-right: 3rem;
+    }
+
+    .btn-toggle {
+      position: absolute;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: $color-text-muted;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      svg { width: 18px; height: 18px; }
+      &:hover { color: $color-text-main; }
+    }
+  }
+}
+
+.forgot-link-row {
+  text-align: right;
+  margin: -0.5rem 0 1.5rem 0;
+
+  a {
+    color: $color-accent-blue;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+// ── BOTÃO DE AÇÃO PRINCIPAL ──
+.btn-action-submit {
+  width: 100%;
+  background-color: $color-btn-green; // Tom verde esmeralda limpo
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem;
+  font-family: $font-text;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+
+  &:hover {
+    background-color: darken($color-btn-green, 4%);
+  }
+  
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.switch-auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: $color-text-muted;
+  font-weight: 500;
+
+  a {
+    color: $color-btn-green;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    
+    &:hover { text-decoration: underline; }
+  }
+}
+
+// ── LISTAGEM DE PLANOS COMPACTA (CADASTRO) ──
+.plans-container {
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .container-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $color-text-main;
+  }
+
+  .plan-row-option {
+    display: flex;
+    align-items: center;
+    border: 1px solid $color-input-border;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    input[type="radio"] {
+      margin-right: 0.75rem;
+      accent-color: $color-accent-blue;
+    }
+
+    .details {
+      flex-grow: 1;
+      .name {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: $color-text-main;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        
+        small { color: $color-text-muted; font-weight: 400; }
+      }
+      
+      .pop {
+        background-color: #e6fffa;
+        color: #00a389;
+        font-size: 0.6rem;
+        font-weight: 800;
+        padding: 0.1rem 0.3rem;
+        border-radius: 4px;
+      }
+    }
+
+    .price-tag {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: $color-text-main;
+      
+      &.free { color: $color-swimlog-green; }
+    }
+
+    &.selected {
+      border-color: $color-accent-blue;
+      background-color: rgba($color-accent-blue, 0.02);
+    }
+  }
+}
+
+.checkbox-terms-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.8rem;
+  color: $color-text-muted;
+  cursor: pointer;
+
+  input { accent-color: $color-btn-green; }
+  a { color: $color-text-main; font-weight: 600; text-decoration: underline; }
+}
+
+// Animação de fade nas abas
+.animate-fade {
+  animation: fadeIn 0.25s ease-out both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}

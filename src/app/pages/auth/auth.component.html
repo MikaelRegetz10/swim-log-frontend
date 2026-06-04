@@ -1,0 +1,138 @@
+<section class="auth-page-wrapper">
+  <div class="auth-centered-card">
+    
+    <div class="brand-header">
+      <div class="logo-wordmark">
+        <span class="swim">swim</span><span class="log">log</span>
+      </div>
+      <h2 class="panel-title">Painel do técnico</h2>
+    </div>
+
+    <div class="auth-tabs">
+      <button [class.active]="isLoginMode" (click)="toggleMode(true)">Entrar</button>
+      <button [class.active]="!isLoginMode" (click)="toggleMode(false)">Criar conta</button>
+    </div>
+
+    @if (isLoginMode) {
+      <div class="form-content animate-fade">
+        <p class="auth-description">Acompanhe parciais, treinos e relatórios de evolução em um só lugar.</p>
+
+        <form (ngSubmit)="onLoginSubmit()">
+          <div class="input-group">
+            <label>E-mail</label>
+            <input type="text" [(ngModel)]="loginData.login" name="loginUser" placeholder="seu@email.com">
+          </div>
+
+          <div class="input-group">
+            <label>Senha</label>
+            <div class="password-wrapper">
+              <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="loginData.password" name="loginPassword" placeholder="••••••••">
+              <button type="button" class="btn-toggle" (click)="togglePasswordVisibility()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="forgot-link-row">
+            <a href="#">Esqueci minha senha</a>
+          </div>
+
+          <button type="submit" class="btn-action-submit">Entrar no painel</button>
+
+          <p class="switch-auth-footer">
+            Ainda não é parceiro? <a (click)="toggleMode(false)">Cadastre-se</a>
+          </p>
+        </form>
+      </div>
+    } 
+    
+    @else {
+      <div class="form-content animate-fade">
+        <p class="auth-description">Crie sua conta para iniciar o gerenciamento inteligente de seus atletas.</p>
+
+        <form (ngSubmit)="onRegisterSubmit()">
+          <div class="input-group">
+            <label>Nome completo</label>
+            <input type="text" [(ngModel)]="registerName" name="regName" placeholder="Carlos Ferreira">
+          </div>
+
+          <div class="input-group">
+            <label>E-mail de Login</label>
+            <input type="email" [(ngModel)]="registerEmail" name="regEmail" placeholder="carlos.ferreira@email.com">
+          </div>
+
+          <div class="input-group">
+            <label>Equipe / Clube</label>
+            <input type="text" [(ngModel)]="registerTeam" name="regTeam" placeholder="Clube Aquático São Paulo">
+          </div>
+
+          <div class="input-group">
+            <label>Senha de acesso</label>
+            <div class="password-wrapper">
+              <input [type]="showPassword ? 'text' : 'password'" placeholder="••••••••" 
+                    [(ngModel)]="registerPassword" name="regPassword">
+              <button type="button" class="btn-toggle" (click)="togglePasswordVisibility()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+          
+            <div class="password-requirements">
+              <span [class.valid]="hasMinLength">Mínimo de 8 caracteres</span>
+              <span [class.valid]="hasNumber">Pelo menos 1 número</span>
+              <span [class.valid]="hasSpecialChar">1 caractere especial (!&#64;#)</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Confirme sua senha</label>
+            <div class="password-wrapper">
+              <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="••••••••" 
+                    [(ngModel)]="confirmPassword" name="confPassword">
+              <button type="button" class="btn-toggle" (click)="toggleConfirmPasswordVisibility()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+
+            @if (confirmPassword.length > 0) {
+              <small class="match-msg" [class.success]="passwordsMatch" [class.error]="!passwordsMatch">
+                {{ passwordsMatch ? 'As senhas coincidem' : 'As senhas não coincidem' }}
+              </small>
+            }
+          </div>
+
+          <div class="plans-container">
+            <label class="container-label">Escolha seu plano</label>
+            
+            <label class="plan-row-option" [class.selected]="selectedPlan === 'starter'">
+              <input type="radio" name="planSelection" value="starter" [(ngModel)]="selectedPlan">
+              <div class="details">
+                <span class="name">Starter <small>· Até 3 atletas</small></span>
+              </div>
+              <span class="price-tag free">Grátis</span>
+            </label>
+
+            <label class="plan-row-option" [class.selected]="selectedPlan === 'pro'">
+              <input type="radio" name="planSelection" value="pro" [(ngModel)]="selectedPlan">
+              <div class="details">
+                <span class="name">Pro <span class="pop">POPULAR</span></span>
+              </div>
+              <span class="price-tag">R$ 49</span>
+            </label>
+          </div>
+
+          <label class="checkbox-terms-label">
+            <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="false">
+            <span>Li e aceito os <a href="#">Termos de Uso</a> do Swimlog.</span>
+          </label>
+
+          <button type="submit" class="btn-action-submit">Criar minha conta</button>
+
+          <p class="switch-auth-footer">
+            Já possui uma conta? <a (click)="toggleMode(true)">Fazer Login</a>
+          </p>
+        </form>
+      </div>
+    }
+
+  </div>
+</section>

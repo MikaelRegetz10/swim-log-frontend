@@ -26,6 +26,12 @@ export class AuthComponent implements OnInit, OnDestroy {
   registerPassword = '';
   confirmPassword = '';
 
+  showPopup = false;
+  popupType: 'success' | 'error' = 'success';
+  popupTitle = '';
+  popupMessage = '';
+
+
   private authService = inject(AuthService);
   private router = inject(Router);
 
@@ -42,6 +48,17 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.renderer.removeClass(this.document.body, 'auth-page');
   }
 
+  triggerPopup(type: 'success' | 'error', title: string, message: string): void {
+    this.popupType = type;
+    this.popupTitle = title;
+    this.popupMessage = message;
+    this.showPopup = true;
+  }
+
+  closePopup(): void {
+    this.showPopup = false;
+  }
+
   onLoginSubmit(): void {
     if (!this.loginData.login || !this.loginData.password) return;
 
@@ -55,8 +72,12 @@ export class AuthComponent implements OnInit, OnDestroy {
         console.log("Login feito com sucesso!");
       },
       error: (err) => {
-        console.error("Erro ao efetuar o login:", err)
-        alert('Credenciais inválidas')
+        let errorMessage = 'Login ou senha inválido';
+        if (err.error && err.error.detail) {
+          errorMessage = err.error.detail; 
+        }
+
+        this.triggerPopup('error', 'Não foi possivel logar.', errorMessage);
       }
     });
   }
@@ -67,19 +88,31 @@ export class AuthComponent implements OnInit, OnDestroy {
     const payload: RegisterRequest = {
       login: this.registerEmail,
       password: this.registerPassword,
-      role: 'tecnico', // O formulário da landing page cria contas de técnicos
+      role: 'tecnico',
       name: this.registerName,
       team: this.registerTeam
     };
 
     this.authService.register(payload).subscribe({
       next: (response) => {
-        alert('Conta criada com sucesso! Faça login para continuar.');
+        this.triggerPopup('success', 'Conta Criada!', 'Conta criada com sucesso! Faça login para continuar.');
         this.isLoginMode = true;
+        
+        this.registerName = '';
+        this.registerEmail = '';
+        this.registerTeam = '';
+        this.registerPassword = '';
+        this.confirmPassword = '';
       },
       error: (err) => {
         console.error('Erro no cadastro:', err);
-        alert('Erro ao registrar técnico. Verifique os dados ou se o usuário já existe.');
+        
+        let errorMessage = 'Erro ao registrar técnico. Verifique os dados enviados.';
+        if (err.error && err.error.detail) {
+          errorMessage = err.error.detail; 
+        }
+
+        this.triggerPopup('error', 'Não foi possível cadastrar', errorMessage);
       }
     });
 
@@ -88,6 +121,11 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   toggleMode(loginMode: boolean): void {
     this.isLoginMode = loginMode;
+    this.registerName = '';
+    this.registerEmail = '';
+    this.registerTeam = '';
+    this.registerPassword = '';
+    this.confirmPassword = '';
   }
 
   togglePasswordVisibility(): void {

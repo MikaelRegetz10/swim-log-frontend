@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { LoginRequest, LoginResponse, RegisterRequest } from '../models/auth.model';
@@ -42,8 +42,29 @@ export class AuthService {
 
   logout(): void {
     if (typeof window !== 'undefined'){
-      localStorage.removeItem("swimlog_token")
+      localStorage.removeItem("swimlog_token");
     }
+  }
+
+  verifyEmail(token: string): Observable<{ message: string; status: string }>{
+    const params = new HttpParams().set('token', token);
+
+    return this.http.post<{ message: string; status: string}>(
+      `${this.API_URL}/verify-email`,
+      null,
+      { params }
+    )
+  }
+
+
+  resendVerification(email: string): Observable<{ message: string; status: string }> {
+    const params = new HttpParams().set('email', email);
+    
+    return this.http.post<{ message: string; status: string }>(
+      `${this.API_URL}/resend-verification`, 
+      null, 
+      { params }
+    );
   }
 
 }

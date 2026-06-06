@@ -1,0 +1,107 @@
+<section class="auth-page-wrapper">
+  <div class="auth-centered-card">
+    
+    <div class="brand-header">
+      <div class="logo-wordmark">
+        <span class="swim">swim</span><span class="log">log</span>
+      </div>
+      <h2 class="panel-title">Ativação de Conta</h2>
+    </div>
+
+    <div class="feedback-container animate-fade">
+      
+      @if (verificationStatus === 'LOADING') {
+        <div class="status-icon loading">
+          <div class="spinner"></div>
+        </div>
+        <p class="auth-description">{{ backendMessage }}</p>
+      }
+
+      @else if (verificationStatus === 'SUCCESS') {
+        <div class="status-icon success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <p class="auth-description highlight-msg">{{ backendMessage }}</p>
+        
+        <button routerLink="/login" class="btn-action-submit">Ir para o Login</button>
+      }
+
+      @else if (verificationStatus === 'ERROR') {
+        <div class="status-icon error">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </div>
+        
+        <p class="auth-description error-msg">{{ backendMessage }}</p>
+        
+        <div class="resend-box">
+          <p class="resend-instruction">
+            O link expirou ou é inválido? Digite seu e-mail cadastrado abaixo para receber um novo:
+          </p>
+          
+          <form (ngSubmit)="onResendSubmit()" class="resend-form">
+            <div class="input-group">
+              <input 
+                type="email" 
+                placeholder="seu@email.com" 
+                [(ngModel)]="emailInput" 
+                name="resendEmailField" 
+                required
+              >
+              
+              @if (emailInput.length > 0 && !isEmailValid) {
+                <small class="error-text">
+                  Por favor, insira um formato de e-mail válido.
+                </small>
+              }
+            </div>
+            
+            <button 
+              type="submit" 
+              class="btn-action-submit" 
+              [disabled]="isResending || !isEmailValid"
+            >
+              {{ isResending ? 'Enviando...' : 'Reenviar link de ativação' }}
+            </button>
+          </form>
+        </div>
+        
+        <a routerLink="/login" class="back-link">Voltar au início</a>
+      }
+
+    </div>
+
+  </div>
+</section>
+
+@if (showPopup) {
+  <div class="popup-overlay animate-fade" (click)="closePopup()">
+    <div class="popup-card animate-scale" (click)="$event.stopPropagation()">
+      
+      <div class="popup-icon" [class.success]="popupType === 'success'" [class.error]="popupType === 'error'">
+        @if (popupType === 'success') {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        } @else {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        }
+      </div>
+
+      <h3 class="popup-title-text">{{ popupTitle }}</h3>
+      <p class="popup-message-text">{{ popupMessage }}</p>
+
+      <button class="btn-popup-close" [class.success]="popupType === 'success'" (click)="closePopup()">
+        Entendido
+      </button>
+
+    </div>
+  </div>
+}

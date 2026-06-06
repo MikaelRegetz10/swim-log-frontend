@@ -136,3 +136,31 @@
 
   </div>
 </section>
+
+@if (showPopup) {
+  <div class="popup-overlay animate-fade" (click)="closePopup()">
+    <div class="popup-card animate-scale" (click)="$event.stopPropagation()">
+      
+      <div class="popup-icon" [class.success]="popupType === 'success'" [class.error]="popupType === 'error'">
+        @if (popupType === 'success') {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        } @else {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        }
+      </div>
+
+      <h3 class="popup-title-text">{{ popupTitle }}</h3>
+      <p class="popup-message-text">{{ popupMessage }}</p>
+
+      <button class="btn-popup-close" [class.success]="popupType === 'success'" (click)="closePopup()">
+        Entendido
+      </button>
+
+    </div>
+  </div>
+}

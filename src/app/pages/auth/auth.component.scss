@@ -357,3 +357,112 @@ $color-input-border: #e2e8f0;
   from { opacity: 0; transform: translateY(2px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+// ── ESTRUTURA DO POP-UP CUSTOMIZADO ──
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(#0a2540, 0.4); // Tom marinho escuro translúcido
+  backdrop-filter: blur(4px);           // Desfoque elegante de fundo
+  z-index: 2000;                        // Fica por cima de absolutamente tudo
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.popup-card {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 25px 50px -12px rgba(10, 37, 64, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.popup-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.success {
+    background-color: rgba(#48bb78, 0.12);
+    color: #48bb78; // Verde Swimlog
+  }
+
+  &.error {
+    background-color: rgba(#e53e3e, 0.12);
+    color: #e53e3e; // Vermelho de Atenção
+  }
+}
+
+.popup-title-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0a2540;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.popup-message-text {
+  font-size: 0.95rem;
+  color: #6b7a8d;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.btn-popup-close {
+  width: 100%;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #0a2540; // Fundo escuro padrão para erro
+  color: #ffffff;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: lighten(#0a2540, 8%);
+  }
+
+  // Variação de cor caso o pop-up seja de sucesso
+  &.success {
+    background-color: #4db096;
+    
+    &:hover {
+      background-color: darken(#4db096, 5%);
+    }
+  }
+}
+
+// ── ANIMAÇÕES DE ENTRADA SUAVE ──
+
+.animate-scale {
+  animation: scaleUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}

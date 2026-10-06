@@ -1,0 +1,71 @@
+<section class="auth-page-wrapper">
+  <div class="auth-centered-card">
+    
+    <div class="brand-header">
+      <div class="logo-wordmark">
+        <span class="swim">swim</span><span class="log">log</span>
+      </div>
+      <h2 class="panel-title">Convite de Atleta</h2>
+    </div>
+
+    @if (screenState === 'VALIDATING') {
+      <div class="state-container animate-fade">
+        <div class="spinner"></div>
+        <p class="state-desc">Validando os dados do convite do seu técnico...</p>
+      </div>
+    }
+
+    @if (screenState === 'FORM') {
+      <div class="form-content animate-fade">
+        <div class="welcome-badge">
+          <p>Você foi convidado por <strong>{{ coachName }}</strong> para fazer parte da equipe <strong>{{ teamName }}</strong>.</p>
+        </div>
+
+        <form (ngSubmit)="onAthleteRegister()">
+          <div class="input-group">
+            <label>Nome Completo</label>
+            <input type="text" [(ngModel)]="athleteData.name" name="athName" placeholder="Seu nome completo" required>
+          </div>
+
+          <div class="input-group">
+            <label>Data de Nascimento</label>
+            <input type="date" [(ngModel)]="athleteData.dateOfBirth" name="athBirth" required>
+          </div>
+
+          <div class="input-group">
+            <label>E-mail de Acesso</label>
+            <input type="email" [(ngModel)]="athleteData.email" name="athEmail" placeholder="seu@email.com" required>
+          </div>
+
+          <div class="input-group">
+            <label>Crie uma Senha</label>
+            <input type="password" [(ngModel)]="athleteData.password" name="athPass" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn-action-submit" [disabled]="!athleteData.name || !athleteData.email || !athleteData.password">
+            Solicitar Entrada na Equipe
+          </button>
+        </form>
+      </div>
+    }
+
+    @if (screenState === 'SUCCESS') {
+      <div class="state-container animate-fade text-center">
+        <div class="status-icon success">✓</div>
+        <h3 class="state-title">Cadastro Concluído!</h3>
+        <p class="state-desc">Sua solicitação foi enviada para a fila do técnico <strong>{{ coachName }}</strong>. Você poderá acessar o sistema assim que ele aprovar seu vínculo.</p>
+        <button routerLink="/login" class="btn-action-submit">Voltar para a tela inicial</button>
+      </div>
+    }
+
+    @if (screenState === 'ERROR') {
+      <div class="state-container animate-fade text-center">
+        <div class="status-icon error">✕</div>
+        <h3 class="state-title">Não foi possível prosseguir</h3>
+        <p class="state-desc error-msg">{{ errorMessage }}</p>
+        <button (click)="screenState = 'FORM'" class="btn-secondary-back" style="margin-top: 1rem;">Tentar Novamente</button>
+      </div>
+    }
+
+  </div>
+</section>

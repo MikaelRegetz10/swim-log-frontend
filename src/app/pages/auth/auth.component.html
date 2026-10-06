@@ -20,17 +20,33 @@
         <form (ngSubmit)="onLoginSubmit()">
           <div class="input-group">
             <label>E-mail</label>
-            <input type="text" [(ngModel)]="loginData.login" name="loginUser" placeholder="seu@email.com">
+            <input 
+              type="text" 
+              [(ngModel)]="loginData.login" 
+              name="loginUser" 
+              placeholder="seu@email.com"
+              [class.input-error]="loginSubmitted && !loginData.login">
+            @if (loginSubmitted && !loginData.login) {
+              <span class="field-error-text">Informe o seu e-mail de acesso.</span>
+            }
           </div>
 
           <div class="input-group">
             <label>Senha</label>
             <div class="password-wrapper">
-              <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="loginData.password" name="loginPassword" placeholder="••••••••">
+              <input 
+                [type]="showPassword ? 'text' : 'password'" 
+                [(ngModel)]="loginData.password" 
+                name="loginPassword" 
+                placeholder="••••••••"
+                [class.input-error]="loginSubmitted && !loginData.password">
               <button type="button" class="btn-toggle" (click)="togglePasswordVisibility()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
               </button>
             </div>
+            @if (loginSubmitted && !loginData.password) {
+              <span class="field-error-text">Informe a sua senha.</span>
+            }
           </div>
 
           <div class="forgot-link-row">
@@ -53,41 +69,73 @@
         <form (ngSubmit)="onRegisterSubmit()">
           <div class="input-group">
             <label>Nome completo</label>
-            <input type="text" [(ngModel)]="registerName" name="regName" placeholder="Carlos Ferreira">
+            <input 
+              type="text" 
+              [(ngModel)]="registerName" 
+              name="regName" 
+              placeholder="Carlos Ferreira"
+              [class.input-error]="registerSubmitted && !registerName.trim()">
+            @if (registerSubmitted && !registerName.trim()) {
+              <span class="field-error-text">Nome é obrigatório.</span>
+            }
           </div>
 
           <div class="input-group">
             <label>E-mail de Login</label>
-            <input type="email" [(ngModel)]="registerEmail" name="regEmail" placeholder="carlos.ferreira@email.com">
+            <input 
+              type="email" 
+              [(ngModel)]="registerEmail" 
+              name="regEmail" 
+              placeholder="carlos.ferreira@email.com"
+              [class.input-error]="(registerSubmitted || registerEmail.length > 0) && !isEmailValid">
+            @if ((registerSubmitted || registerEmail.length > 0) && !isEmailValid) {
+              <span class="field-error-text">Digite um e-mail válido (ex: nome&#64;dominio.com).</span>
+            }
           </div>
 
           <div class="input-group">
             <label>Equipe / Clube</label>
-            <input type="text" [(ngModel)]="registerTeam" name="regTeam" placeholder="Clube Aquático São Paulo">
+            <input 
+              type="text" 
+              [(ngModel)]="registerTeam" 
+              name="regTeam" 
+              placeholder="Clube Aquático São Paulo"
+              [class.input-error]="registerSubmitted && !registerTeam.trim()">
+            @if (registerSubmitted && !registerTeam.trim()) {
+              <span class="field-error-text">Nome da equipe é obrigatório.</span>
+            }
           </div>
 
           <div class="input-group">
             <label>Senha de acesso</label>
             <div class="password-wrapper">
-              <input [type]="showPassword ? 'text' : 'password'" placeholder="••••••••" 
-                    [(ngModel)]="registerPassword" name="regPassword">
+              <input 
+                [type]="showPassword ? 'text' : 'password'" 
+                placeholder="••••••••" 
+                [(ngModel)]="registerPassword" 
+                name="regPassword"
+                [class.input-error]="registerSubmitted && !isPasswordValid">
               <button type="button" class="btn-toggle" (click)="togglePasswordVisibility()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
               </button>
             </div>
           
             <div class="password-requirements">
-              <span [class.valid]="hasMinLength">Mínimo de 8 caracteres</span>
-              <span [class.valid]="hasNumber">Pelo menos 1 número</span>
-              <span [class.valid]="hasSpecialChar">1 caractere especial (!&#64;#)</span>
+              <span [class.valid]="hasMinLength" [class.req-error]="registerSubmitted && !hasMinLength">Mínimo de 8 caracteres</span>
+              <span [class.valid]="hasNumber" [class.req-error]="registerSubmitted && !hasNumber">Pelo menos 1 número</span>
+              <span [class.valid]="hasSpecialChar" [class.req-error]="registerSubmitted && !hasSpecialChar">1 caractere especial (!&#64;#)</span>
             </div>
           </div>
 
           <div class="input-group">
             <label>Confirme sua senha</label>
             <div class="password-wrapper">
-              <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="••••••••" 
-                    [(ngModel)]="confirmPassword" name="confPassword">
+              <input 
+                [type]="showConfirmPassword ? 'text' : 'password'" 
+                placeholder="••••••••" 
+                [(ngModel)]="confirmPassword" 
+                name="confPassword"
+                [class.input-error]="(registerSubmitted || confirmPassword.length > 0) && !passwordsMatch">
               <button type="button" class="btn-toggle" (click)="toggleConfirmPasswordVisibility()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
               </button>
@@ -120,12 +168,15 @@
             </label>
           </div>
 
-          <label class="checkbox-terms-label">
-            <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="false">
+          <label class="checkbox-terms-label" [class.terms-error]="registerSubmitted && !acceptTerms">
+            <input type="checkbox" [(ngModel)]="acceptTerms" name="acceptTermsCheck">
             <span>Li e aceito os <a href="#">Termos de Uso</a> do Swimlog.</span>
           </label>
+          @if (registerSubmitted && !acceptTerms) {
+            <span class="field-error-text terms-error-msg">Você precisa aceitar os Termos de Uso.</span>
+          }
 
-          <button type="submit" class="btn-action-submit">Criar minha conta</button>
+          <button type="submit" class="btn-action-submit" [disabled]="registerSubmitted && !acceptTerms">Criar minha conta</button>
 
           <p class="switch-auth-footer">
             Já possui uma conta? <a (click)="toggleMode(true)">Fazer Login</a>

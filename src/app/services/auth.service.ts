@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { LoginRequest, LoginResponse, RegisterRequest } from '../models/auth.model';
 import { Observable, tap } from 'rxjs';
 import { response } from 'express';
+import { InviteValidationResponse } from '../models/invite-validation-response';
 
 @Injectable({
   providedIn: 'root'
@@ -67,4 +68,13 @@ export class AuthService {
     );
   }
 
+  validateInviteToken(token: string): Observable<InviteValidationResponse> {
+    return this.http.get<InviteValidationResponse>(`${this.API_URL}/invite/validate`, {
+      params: { token }
+    });
+  }
+
+  registerAthleteViaInvite(payload: any): Observable<void> {
+    return this.http.post<void>(`${this.API_URL}/registrar-atleta-via-convite`, payload);
+  }
 }

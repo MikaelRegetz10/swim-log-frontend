@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+
+$font-logo: 'Syne', sans-serif;
+$font-text: 'Plus Jakarta Sans', sans-serif;
+
+$color-bg-page: #f4f7f9;
+$color-card-bg: #ffffff;
+$color-text-main: #2d3748;
+$color-text-muted: #718096;
+$color-accent-blue: #4fa8e0;
+$color-accent-dark: #112a46;
+$color-btn-green: #4db096;
+$color-swimlog-green: #48bb78;
+$color-input-border: #e2e8f0;
+
+.auth-page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-bg-page;
+  font-family: $font-text;
+  padding: 2rem 1rem;
+}
+
+.auth-centered-card {
+  background-color: $color-card-bg;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 32px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 20px 60px rgba(17, 42, 70, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .logo-wordmark {
+    font-family: $font-logo;
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+
+    .swim { color: $color-accent-dark; }
+    .log { color: $color-accent-blue; }
+  }
+
+  .panel-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: $color-text-main;
+    letter-spacing: -0.5px;
+  }
+}
+
+.welcome-badge {
+  background-color: rgba($color-accent-blue, 0.06);
+  border-left: 4px solid $color-accent-blue;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  
+  p {
+    font-size: 0.9rem;
+    color: $color-accent-dark;
+    line-height: 1.5;
+    font-weight: 500;
+    
+    strong { font-weight: 700; }
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  text-align: left;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: $color-text-main;
+  }
+
+  input {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid $color-input-border;
+    border-radius: 12px;
+    padding: 0.9rem 1.2rem;
+    font-family: $font-text;
+    font-size: 0.95rem;
+    color: $color-text-main;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: rgba($color-accent-blue, 0.5);
+      box-shadow: 0 0 0 4px rgba($color-accent-blue, 0.06);
+    }
+  }
+}
+
+.btn-action-submit {
+  width: 100%;
+  background-color: $color-btn-green;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem;
+  font-family: $font-text;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+
+  &:hover { background-color: darken($color-btn-green, 4%); }
+  &:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+}
+
+// Estados extras (Loading, Sucesso, Erro)
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.state-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $color-accent-dark;
+  margin-bottom: 0.75rem;
+}
+
+.state-desc {
+  font-size: 0.95rem;
+  color: $color-text-muted;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.status-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+
+  &.success { background-color: rgba($color-swimlog-green, 0.1); color: $color-swimlog-green; }
+  &.error { background-color: rgba(#e53e3e, 0.1); color: #e53e3e; }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba($color-accent-blue, 0.1);
+  border-top-color: $color-accent-blue;
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.animate-fade { animation: fadeIn 0.3s ease-out both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }

@@ -1,0 +1,166 @@
+<div class="dashboard-container">
+  
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-brand">
+      <span class="swim">swim</span><span class="log">log</span>
+    </div>
+
+    <nav class="sidebar-menu">
+      <button [class.active]="activeTab === 'dashboard'" (click)="changeTab('dashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Visão Geral
+      </button>
+      
+      <button [class.active]="activeTab === 'athletes'" (click)="changeTab('athletes')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Meus Atletas
+      </button>
+
+      <button [class.active]="activeTab === 'competitions'" (click)="changeTab('competitions')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+        Competições
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="avatar-circle">T</div>
+        <div class="info">
+          <span class="name">Técnico Principal</span>
+          <span class="role">Swimlog Pro</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="dashboard-main">
+    
+    <header class="main-header">
+      <div class="greeting">
+        <h1>Dashboard</h1>
+        <p>Bem-vindo de volta! Gestão de performance atualizada.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-quick-action secondary">+ Balizamento</button>
+        <button class="btn-quick-action" (click)="onGenerateInviteClick()">+ Novo Atleta</button>
+      </div>
+    </header>
+
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <div class="details">
+          <span class="label">Atletas Ativos</span>
+          <h2 class="value">{{ athletesList.length }}</h2>
+        </div>
+        <div class="card-icon blue">🏊</div>
+      </div>
+      <div class="metric-card">
+        <div class="details">
+          <span class="label">Competições Mapeadas</span>
+          <h2 class="value">0</h2>
+        </div>
+        <div class="card-icon green">🏆</div>
+      </div>
+      <div class="metric-card">
+        <div class="details">
+          <span class="label">Últimas Parciais</span>
+          <h2 class="value">--</h2>
+        </div>
+        <div class="card-icon dark">⏱️</div>
+      </div>
+    </section>
+
+    @if (pendingAthletesList && pendingAthletesList.length > 0) {
+      <section class="content-panel pending-queue-panel animate-fade" style="border-left: 4px solid #4fa8e0; margin-bottom: 2.5rem;">
+        <div class="panel-header">
+          <h3>Fila de Aprovação de Atletas</h3>
+          <span class="subtitle">Solicitações de vínculo pendentes via link de convite</span>
+        </div>
+
+        <div class="pending-grid">
+          @for (ath of pendingAthletesList; track ath.id) {
+            <div class="pending-user-card">
+              <div class="user-meta">
+                <span class="user-name">{{ ath.name }}</span>
+                <span class="user-sub">Nascimento: {{ ath.dateOfBirth | date:'dd/MM/yyyy':'UTC' }}</span>
+              </div>
+              <div class="card-actions">
+                <button class="btn-approve" (click)="onApproveAthlete(ath.id)">✓ Aprovar Atleta</button>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    }
+
+    <section class="content-panel">
+      <div class="panel-header">
+        <h3>Atletas da Equipe</h3>
+        <span class="subtitle">Gerenciamento e monitoramento de desempenho</span>
+      </div>
+
+      @if (isLoading) {
+        <div class="panel-loading">
+          <div class="spinner"></div>
+          <p>Carregando registros de atletas...</p>
+        </div>
+      } @else if (errorMessage) {
+        <div class="panel-error">
+          <p>{{ errorMessage }}</p>
+        </div>
+      } @else {
+        <div class="table-responsive">
+          <table class="athletes-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome Completo</th>
+                <th>Idade</th>
+                <th>Data de Nascimento</th>
+                <th class="text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (athlete of athletesList; track athlete.id) {
+                <tr class="table-row-animate">
+                  <td class="id-cell">#{{ athlete.id }}</td>
+                  <td class="name-cell">{{ athlete.name }}</td>
+                  <td><span class="badge-age">{{ calculateAge(athlete.dateOfBirth) }} anos</span></td>
+                  <td class="date-cell">{{ athlete.dateOfBirth | date:'dd/MM/yyyy':'UTC' }}</td>
+                  <td class="text-right">
+                    <button class="btn-table-action">Ver Histórico</button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="table-empty-state">
+                    <p>Nenhum atleta vinculado à sua equipe ainda.</p>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+
+  </main>
+</div>
+
+@if (showInviteModal) {
+  <div class="popup-overlay animate-fade" (click)="showInviteModal = false">
+    <div class="popup-card animate-scale" (click)="$event.stopPropagation()">
+      <div class="popup-icon success">🔗</div>
+      <h3 class="popup-title-text">Link de Convite Criado</h3>
+      <p class="popup-message-text">Compartilhe o link temporário abaixo com seus atletas para iniciar o autocadastro.</p>
+      
+      <div class="link-display-box" style="background: #f4f7f9; padding: 1.1rem; border-radius: 12px; width: 100%; word-break: break-all; font-weight: 600; font-size: 0.85rem; margin-bottom: 1.5rem; border: 1px solid #e2e8f0; color: #112a46; text-align: center;">
+        {{ generatedInviteUrl }}
+      </div>
+
+      <button class="btn-popup-close success" (click)="copyInviteToClipboard()">
+        Copiar Link Seguro
+      </button>
+    </div>
+  </div>
+}
